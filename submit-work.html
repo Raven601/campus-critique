@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Work - Peer Evaluation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sidebar {
+      transition: all 0.3s ease;
+      width: 16rem;
+      position: fixed;
+      height: 100vh;
+      z-index: 50;
+      flex-direction: column;
+    }
+
+    .main-content {
+      transition: all 0.3s ease;
+      margin-left: 16rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+    }
+
+    .category-option {
+      transition: all 0.3s ease;
+    }
+
+    .category-option input:checked+span {
+      background-color: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+
+    .ai-highlight {
+      background-color: #fef3cd;
+      border: 1px solid #f59e0b;
+      border-radius: 3px;
+      padding: 2px 4px;
+      margin: 1px;
+    }
+
+    .ai-suspicious {
+      background-color: #fee2e2;
+      border: 1px solid #ef4444;
+      border-radius: 3px;
+      padding: 2px 4px;
+      margin: 1px;
+    }
+
+    .ai-human {
+      background-color: #d1fae5;
+      border: 1px solid #10b981;
+      border-radius: 3px;
+      padding: 2px 4px;
+      margin: 1px;
+    }
+
+    .highlight-container {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px;
+      background-color: #f9fafb;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <button id="mobileMenuBtn"
+    class="mobile-menu-btn fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+
+  <div class="flex flex-1">
+    <div id="sidebar" class="sidebar bg-blue-800 text-white flex flex-col">
+      <div class="p-4 border-b border-blue-700 flex items-center">
+        <div class="bg-white p-2 rounded-md mr-3">
+          <img src="/images/logo.png" alt="Logo" class="h-8 w-8 object-contain">
+        </div>
+        <h1 class="text-xl font-bold">Campus Critique</h1>
+      </div>
+
+      <button id="userProfileBtn"
+        class="w-full p-4 border-b border-blue-700 hover:bg-blue-700 transition-all duration-200 flex items-center">
+        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-full p-3 mr-3 shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
+        <div class="flex-1 text-left">
+          <p class="font-semibold text-white" id="sidebarUsername">User</p>
+          <p class="text-blue-200 text-sm" id="sidebarUserRole">Client</p>
+        </div>
+      </button>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-2">
+          <li>
+            <a href="/dashboard.html" class="flex items-center p-3 rounded-lg hover:bg-blue-700 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/submit-work.html" class="flex items-center p-3 rounded-lg bg-blue-700 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>Submit Work</span>
+            </a>
+          </li>
+          <li>
+            <a href="/my-works.html" class="flex items-center p-3 rounded-lg hover:bg-blue-700 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              <span>My Works</span>
+            </a>
+          </li>
+          <li>
+            <a href="/all-works.html" class="flex items-center p-3 rounded-lg hover:bg-blue-700 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              <span>View All Works</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="p-4 border-t border-blue-700">
+        <button id="sidebarLogoutBtn"
+          class="flex items-center w-full p-3 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="mainContent" class="main-content flex flex-col">
+      <header class="bg-blue-600 text-white p-6">
+        <h1 class="text-2xl font-bold">Submit Your Work</h1>
+      </header>
+
+      <main class="flex-grow flex p-6 relative">
+        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-2xl mx-auto">
+          <h2 class="text-xl font-bold mb-6 text-center">Submit Work</h2>
+          <form id="submitWorkForm" class="space-y-4" enctype="multipart/form-data">
+
+            <div>
+              <label for="title" class="block text-gray-700 font-semibold mb-1">Title</label>
+              <input type="text" id="title" name="title" placeholder="Project title"
+                class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2">Category *</label>
+              <div class="grid grid-cols-2 gap-2">
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="language-arts" class="sr-only" required>
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">📚 Language Arts</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="mathematics" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">➕ Mathematics</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="science" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">🔬 Science</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="social-studies" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">🌍 Social Studies</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="arts-humanities" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">🎨 Arts & Humanities</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="physical-education" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">🏃 Physical Education</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="foreign-languages" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">🌐 Foreign Languages</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="technology" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">💻 Technology</span>
+                </label>
+                <label class="category-option cursor-pointer">
+                  <input type="radio" name="category" value="vocational-arts" class="sr-only">
+                  <span class="block text-center border-2 border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-blue-500 transition">🔧 Vocational Arts</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- REPLACED TEXTAREA WITH CONTENTEDITABLE DIV -->
+            <div>
+              <label for="description" class="block text-gray-700 font-semibold mb-1">Your Work</label>
+
+              <div id="description" name="description" contenteditable="true"
+                class="w-full border rounded-lg px-4 py-2 min-h-[130px] focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-auto">
+              </div>
+
+              <div class="text-right text-sm text-gray-500 mt-1">
+                <span id="charCount">0</span>/1000 characters
+              </div>
+            </div>
+            <!-- END -->
+
+            <div>
+              <label for="workFile" class="block text-gray-700 font-semibold mb-1">Upload File</label>
+              <input type="file" id="workFile" name="workFile" accept=".txt,.docx,.pdf"
+                class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <p class="text-gray-500 text-sm mt-1">Supported formats: .txt, .docx, .pdf</p>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <div class="flex items-center mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600 mr-2" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                <span class="font-semibold text-yellow-800">AI Content Check</span>
+              </div>
+              <p class="text-yellow-700 text-sm mb-3">Check your content for AI-generated patterns before submission.</p>
+              <button type="button" id="checkAIBtn"
+                class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-yellow-700 transition flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Check for AI Content
+              </button>
+            </div>
+
+            <button type="submit"
+              class="w-full bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+              Submit Work
+            </button>
+          </form>
+        </div>
+
+        <div id="aiResultPanel"
+          class="hidden fixed right-6 top-28 bg-white border-2 border-blue-400 shadow-2xl rounded-2xl p-6 w-96 transition-all duration-300 max-h-[80vh] overflow-y-auto">
+          <h3 class="text-2xl font-extrabold text-blue-600 mb-4 text-center">AI Content Analysis</h3>
+
+          <div class="text-center mb-6">
+            <p id="aiPercentage" class="text-4xl font-extrabold mb-2">0%</p>
+            <p id="aiVerdict" class="text-lg font-semibold">Analyzing...</p>
+          </div>
+
+          <div class="w-full bg-gray-200 rounded-full h-4 mb-6 overflow-hidden">
+            <div id="aiProgressBar" class="h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+
+          <div class="mb-6">
+            <h4 class="font-bold text-gray-800 mb-3">Detection Results:</h4>
+            <div id="aiAnalysisDetails" class="space-y-2 text-sm"></div>
+          </div>
+
+          <!-- We KEEP the container for now, even though highlights go in the main box -->
+          <div class="mb-6">
+            <h4 class="font-bold text-gray-800 mb-2">Content Analysis:</h4>
+            <div class="highlight-container" id="highlightedText"></div>
+          </div>
+
+          <div class="flex gap-2 justify-center">
+            <button id="editContentBtn"
+              class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition flex-1">
+              ✏️ Edit Content
+            </button>
+            <button id="proceedSubmitBtn"
+              class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex-1">
+              ✅ Submit Anyway
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <footer class="bg-gray-200 text-gray-700 text-center p-6">
+        &copy; 2025 Campus Critique. All rights reserved.
+      </footer>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js"></script>
+<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+<script src="submit-work.js"></script>
+
+  
+</body>
+
+</html>
