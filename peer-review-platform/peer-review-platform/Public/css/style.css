@@ -1,0 +1,66 @@
+/* You can still put custom CSS here if needed */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.bg-hero {
+  background: linear-gradient(to right, #4f46e5, #3b82f6);
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom scrollbar */
+.highlight-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.highlight-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.highlight-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.highlight-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* AI detection highlights */
+.ai-highlight { 
+  background-color: #fef3cd; 
+  border: 1px solid #f59e0b; 
+  border-radius: 3px; 
+  padding: 1px 3px; 
+  margin: 0 1px; 
+}
+
+.ai-suspicious { 
+  background-color: #fee2e2; 
+  border: 1px solid #ef4444; 
+  border-radius: 3px; 
+  padding: 1px 3px; 
+  margin: 0 1px; 
+}
+
+.ai-human { 
+  background-color: #d1fae5; 
+  border: 1px solid #10b981; 
+  border-radius: 3px; 
+  padding: 1px 3px; 
+  margin: 0 1px; 
+}
+
+.detection-category {
+  border-left: 4px solid;
+  padding-left: 8px;
+  margin-bottom: 8px;
+}

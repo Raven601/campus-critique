@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Critique - Peer Evaluation Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        :root { --primary: #3b82f6; --primary-dark: #1e40af; --secondary: #10b981; --accent: #f59e0b; --light: #f8fafc; --dark: #1e293b; --gray: #64748b; --light-gray: #e2e8f0; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background-color: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 100; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .logo-img { height: 45px; width: 45px; object-fit: contain; border-radius: 8px; }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .auth-buttons { display: flex; gap: 15px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
+        .btn-login { background-color: transparent; color: var(--primary); border: 1px solid var(--primary); }
+        .btn-login:hover { background-color: rgba(59, 130, 246, 0.1); }
+        .btn-signup { background-color: var(--primary); color: white; border: 1px solid var(--primary); }
+        .btn-signup:hover { background-color: var(--primary-dark); }
+
+        .hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 80px 0; text-align: center; }
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 1.25rem; margin-bottom: 30px; opacity: 0.9; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary { background-color: white; color: var(--primary); }
+        .btn-primary:hover { background-color: var(--light-gray); }
+        .btn-secondary { background-color: transparent; color: white; border: 2px solid white; }
+        .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+        .features { padding: 80px 0; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 15px; }
+        .section-title p { font-size: 1.1rem; color: var(--gray); max-width: 600px; margin: 0 auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        .feature-card { background-color: white; border-radius: 10px; padding: 30px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); transition: transform 0.3s, box-shadow 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
+        .feature-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.8rem; }
+        .feature-1 .feature-icon { background-color: rgba(59, 130, 246, 0.1); color: var(--primary); }
+        .feature-2 .feature-icon { background-color: rgba(16, 185, 129, 0.1); color: var(--secondary); }
+        .feature-3 .feature-icon { background-color: rgba(245, 158, 11, 0.1); color: var(--accent); }
+
+        .how-it-works { padding: 80px 0; background-color: var(--light-gray); }
+        .steps { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .step { flex: 1; min-width: 200px; text-align: center; padding: 20px; }
+        .step-number { width: 50px; height: 50px; background-color: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; font-weight: 700; }
+
+        .team { padding: 80px 0; background-color: white; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; justify-items: center; }
+        .team-member { text-align: center; padding: 30px 20px; border-radius: 10px; background-color: var(--light); transition: transform 0.3s; max-width: 300px; width: 100%; }
+        .team-member:hover { transform: translateY(-5px); }
+        .member-image { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 20px; background-color: var(--light-gray); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 3px solid var(--primary); }
+        .member-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        .cta { padding: 80px 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; text-align: center; }
+        .cta h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .cta p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.9; }
+
+        footer { background-color: var(--dark); color: white; padding: 60px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-column h3 { font-size: 1.3rem; margin-bottom: 20px; color: white; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: var(--light-gray); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: var(--light-gray); }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { gap: 15px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1.1rem; }
+            .section-title h2 { font-size: 2rem; }
+            .steps { flex-direction: column; }
+            .step { min-width: 100%; }
+            .team-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="images/logo.png" class="logo-img" alt="Campus Critique Logo">
+                    <span>Campus Critique</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#team">Our Team</a>
+                </div>
+                <div class="auth-buttons">
+                    <a href="/login.html" class="btn btn-login">Login</a>
+                    <a href="/signup.html" class="btn btn-signup">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Elevate Learning Through Peer Feedback</h1>
+                <p>Campus Critique helps students improve their work through constructive peer evaluation in a supportive academic environment.</p>
+                <div class="hero-buttons">
+                    <a href="/signup.html" class="btn btn-primary">Get Started Free</a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Campus Critique?</h2>
+                <p>Our platform provides everything you need for effective peer evaluation and collaborative learning.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card feature-1">
+                    <div class="feature-icon"><i class="fas fa-user-secret"></i></div>
+                    <h3>Anonymous Feedback</h3>
+                    <p>Provide honest, constructive feedback without hesitation.</p>
+                </div>
+
+                <div class="feature-card feature-2">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Track Progress</h3>
+                    <p>Monitor improvement over time with detailed analytics.</p>
+                </div>
+
+                <div class="feature-card feature-3">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>Build Community</h3>
+                    <p>Foster a positive, collaborative learning environment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Getting started with Campus Critique is simple and straightforward.</p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up</h3>
+                    <p>Create your account in less than a minute.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Submit Work</h3>
+                    <p>Upload your assignments or projects for peer review.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Review Peers</h3>
+                    <p>Provide constructive feedback on other students' work.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Improve</h3>
+                    <p>Use received feedback to enhance your skills and work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Team</h2>
+                <p>Meet the developers behind Campus Critique</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/pogi.jpg" alt="Jan Raven Laurenaria">
+                    </div>
+                    <h3>Jan Raven Laurenaria</h3>
+                    <div class="role">Frontend Developer</div>
+                    <p>Designing and building the user interface and experience.</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/28017a02-cdca-45a4-a83e-0b2913e9ae45.jpg" alt="Ian Denver Orquiza">
+                    </div>
+                    <h3>Ian Denver Orquiza</h3>
+                    <div class="role">Backend Developer</div>
+                    <p>Developing the server-side logic and database architecture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Improve Your Work?</h2>
+            <p>Join thousands of students enhancing their skills through peer feedback.</p>
+            <a href="/signup.html" class="btn btn-primary">Create Your Free Account</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Campus Critique</h3>
+                    <p>Elevating learning through constructive peer evaluation.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="/login.html">Login</a></li>
+                        <li><a href="/signup.html">Sign Up</a></li>
+                        <li><a href="#features">Features</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li>campuscritique2025@gmail.com</li>
+                        <li>(+63) 949 955 5654</li>
+                        <li>BSIT 3D</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Campus Critique. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 100)) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
